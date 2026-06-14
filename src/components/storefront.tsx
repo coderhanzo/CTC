@@ -590,33 +590,6 @@ export function Storefront({
         </footer>
       </div>
 
-      {/* ===== Mobile bottom nav ===== */}
-      <nav className="fixed inset-x-0 bottom-0 z-40 flex justify-around border-t border-ctc-cream/10 bg-ctc-ink-deep/90 px-4 py-3 backdrop-blur-xl md:hidden">
-        {[
-          ["home", "Home", "/"],
-          ["search", "Shop", "#shop"],
-          ["shopping_bag", "Cart", "#cart"],
-          ["person", "Admin", "/dashboard"],
-        ].map(([icon, label, href]) => (
-          <Link
-            className="flex flex-col items-center gap-1 text-ctc-cream/60 transition hover:text-ctc-pink"
-            href={href}
-            key={label}
-            onClick={(event) => {
-              if (label === "Cart") {
-                event.preventDefault();
-                setIsCartOpen(true);
-              }
-            }}
-          >
-            <MaterialIcon fill={label === "Home"}>{icon}</MaterialIcon>
-            <span className="font-label text-[10px] uppercase tracking-wider">
-              {label}
-            </span>
-          </Link>
-        ))}
-      </nav>
-
       {selectedProduct ? (
         <QuickView
           fallbackImage={mascotHeroUrl}
