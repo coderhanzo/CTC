@@ -15,6 +15,8 @@ const schema = z.object({
   status: z.enum(["active", "draft", "archived"]),
 });
 
+const defaultProductImageBucket = "Example storage";
+
 export async function POST(request: Request) {
   try {
     const supabase = await requireAdminForApi();
@@ -27,13 +29,19 @@ export async function POST(request: Request) {
       const bucket =
         getOptionalEnv("PRODUCT_IMAGE_BUCKET") ||
         getOptionalEnv("NEXT_PUBLIC_PRODUCT_IMAGE_BUCKET") ||
-        "product-images";
+        defaultProductImageBucket;
       const path = `${parsed.slug}/${crypto.randomUUID()}-${image.name}`;
       const { error: uploadError } = await supabase.storage
         .from(bucket)
         .upload(path, image, { upsert: false });
 
       if (uploadError) {
+        if (uploadError.message.toLowerCase().includes("bucket not found")) {
+          throw new Error(
+            `Product image bucket "${bucket}" was not found. Create it in Supabase Storage or set PRODUCT_IMAGE_BUCKET to an existing bucket.`,
+          );
+        }
+
         throw uploadError;
       }
 
