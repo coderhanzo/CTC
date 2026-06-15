@@ -34,7 +34,6 @@ export function ProductManager({
         <form action={saveProduct} className="space-y-4">
           <input name="product_id" type="hidden" />
           <Field label="Name" name="name" />
-          <Field label="Slug" name="slug" />
           <Field label="Category" name="category" />
           <label className="block space-y-2">
             <span className="font-label text-xs uppercase tracking-wider text-[#85A3B2]">Description</span>
@@ -130,7 +129,6 @@ function ProductRow({
       </div>
       <div className="grid min-w-0 gap-3 md:grid-cols-2">
         <input className="dashboard-field h-11 rounded-full px-4 font-label text-sm" name="name" defaultValue={String(product.name)} required />
-        <input className="dashboard-field h-11 rounded-full px-4 font-label text-sm" name="slug" defaultValue={String(product.slug)} required />
         <input className="dashboard-field h-11 rounded-full px-4 font-label text-sm" name="category" defaultValue={String(product.category ?? "")} />
         <input className="dashboard-field h-11 rounded-full px-4 font-label text-sm" name="base_price_ghs" type="number" min={0} defaultValue={Number(product.base_price_pesewas ?? 0) / 100} required />
         <textarea className="dashboard-field h-20 resize-none rounded-2xl px-4 py-3 font-label text-sm md:col-span-2" name="description" defaultValue={String(product.description ?? "")} />
